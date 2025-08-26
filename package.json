@@ -1,0 +1,26 @@
+{
+  "name": "blog-aggregator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type":"module",
+  "scripts": {
+    "start": "tsx ./src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dzabbersmok/Blog-Aggregator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dzabbersmok/Blog-Aggregator/issues"
+  },
+  "homepage": "https://github.com/dzabbersmok/Blog-Aggregator#readme",
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
+  }
+}
