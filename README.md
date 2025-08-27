@@ -7,3 +7,6 @@
 - **esModuleInterop** allows you to use ES module syntax
 - **moduleResolution** specifies how modules are resolved
 - **baseURL** specifies the base directory for module resolution
+
+Check the config file command:
+cat ~/.gatorconfig.json
