@@ -9,7 +9,7 @@ export async function createUser(name: string) {
     if (userInDB) {
         throw new Error("user already exists!");
     }
-    
+
     const [result] = await db.insert(users).values({ name: name }).returning();
     return result;
 }
@@ -19,4 +19,8 @@ export async function getUser(name: string) {
     if (user.length === 0) return;
     
     return user[0];
+}
+
+export async function deleteDB() {
+    return await db.delete(users);
 }
