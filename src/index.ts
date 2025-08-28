@@ -2,10 +2,12 @@ import process from "process";
 
 import { CommandsRegistry, registerCommand, runCommand } from "./commands/commands";
 import { handlerLogin } from "./commands/login";
+import { handlerRegister } from "./commands/register";
 
-function main() {
+async function main() {
     const registry: CommandsRegistry = {};
     registerCommand(registry, "login", handlerLogin);
+    registerCommand(registry, "register", handlerRegister);
 
     const commandLineArgs = process.argv.slice(2);
     if (commandLineArgs.length === 0) {
@@ -16,11 +18,13 @@ function main() {
     const commandName = commandLineArgs[0];
     const commandArgs = commandLineArgs.slice(1);
     try {
-        runCommand(registry, commandName, ...commandArgs);
+        await runCommand(registry, commandName, ...commandArgs);
     } catch (err: any) {
         console.error(err?.message ?? String(err));
         process.exit(1);
     }
+
+    process.exit(0);
 }
 
 main();
