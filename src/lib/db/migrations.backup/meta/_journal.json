@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1756718303014,
+      "tag": "0000_yellow_swordsman",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1756724566452,
+      "tag": "0001_mixed_roland_deschain",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1756728590057,
+      "tag": "0002_public_omega_flight",
+      "breakpoints": true
+    }
+  ]
+}
