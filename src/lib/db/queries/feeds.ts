@@ -19,3 +19,7 @@ export async function createFeed(name: string, url: string, userId: string) {
         throw error;
     }
 }
+
+export async function getFeeds() {
+    return await db.select().from(feeds);
+}

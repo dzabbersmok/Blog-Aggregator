@@ -1,4 +1,4 @@
-import { getUser } from "../lib/db/queries/users";
+import { getUserByName } from "../lib/db/queries/users";
 import { setUser } from "../config";
 import { CommandHandler } from "./commands";
 
@@ -8,7 +8,7 @@ export const handlerLogin: CommandHandler = async (_cmdName, ...args) => {
         throw new Error("username is REQUIRED!");
     }
 
-    const userInDB = await getUser(username);
+    const userInDB = await getUserByName(username);
     if (!userInDB) {
         throw new Error("user does NOT exist!");
     }
