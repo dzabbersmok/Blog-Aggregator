@@ -2,7 +2,6 @@ import { db } from "..";
 import { feeds } from "../schema";
 
 export async function createFeed(name: string, url: string, userId: string) {
-    console.log("createFeed called with:", { name, url, userId });
     try {
         const result = await db
             .insert(feeds)
@@ -15,7 +14,6 @@ export async function createFeed(name: string, url: string, userId: string) {
         
         return result[0];
     } catch (error) {
-        console.error("Full error details:", error);
         throw error;
     }
 }

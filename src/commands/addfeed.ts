@@ -2,19 +2,31 @@ import { getUserByName } from "../lib/db/queries/users";
 import { createFeed } from "../lib/db/queries/feeds";
 import { readConfig } from "../config";
 import { Feed, User } from "../lib/db/schema";
+import { createFeedFollow } from "../lib/db/queries/feed-follows";
 
 export const handleAddFeed = async (_cmdName: string, name: string, url: string) => {
-    console.log("handleFeed");
-    console.log("Parameters received:", { name, url }); // Add this line
     const currentUserName = readConfig().currentUserName;
     const user = await getUserByName(currentUserName);
     if (!user) {
         throw new Error("user not found!");
     }
 
-    console.log("About to create feed with:", { name, url, userId: user.id }); // Add this line
-    const feed = await createFeed(name, url, user.id);
-    printFeed(feed, user);
+    try {
+        const feed = await createFeed(name, url, user.id);
+        const test = await createFeedFollow(user.id, feed.id);
+        console.log("test", test);
+        printFeed(feed, user);
+    } catch (error) {
+        if (typeof error === "object" && error !== null && "cause" in error) {
+            const cause = (error as { cause?: object }).cause;
+
+            if (typeof cause === "object" && cause !== null && "code" in cause && "constraint_name" in cause) {
+                if (cause.code === '23505' && cause.constraint_name === 'feeds_url_unique') {
+                    console.log("This is a duplicate key error for feeds_url_unique!");
+                }
+            }
+        }
+    }
 }
 
 export const printFeed = (feed: Feed, user: User) => {

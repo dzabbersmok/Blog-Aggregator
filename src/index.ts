@@ -8,6 +8,8 @@ import { handlerUsers } from "./commands/users";
 import { handleAgg } from "./commands/aggregate";
 import { handleAddFeed } from "./commands/addfeed";
 import { handleFeeds } from "./commands/feeds";
+import { handleFollow } from "./commands/follow";
+import { handleFollowing } from "./commands/following";
 
 async function main() {
     const registry: CommandsRegistry = {};
@@ -18,6 +20,8 @@ async function main() {
     registerCommand(registry, "agg", handleAgg);
     registerCommand(registry, "addfeed", handleAddFeed);
     registerCommand(registry, "feeds", handleFeeds);
+    registerCommand(registry, "follow", handleFollow);
+    registerCommand(registry, "following", handleFollowing);
 
     const commandLineArgs = process.argv.slice(2);
     if (commandLineArgs.length === 0) {

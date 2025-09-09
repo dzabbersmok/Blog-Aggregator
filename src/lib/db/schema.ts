@@ -1,4 +1,4 @@
-import { pgTable, timestamp, uuid, text, foreignKey } from "drizzle-orm/pg-core";
+import { pgTable, timestamp, uuid, text, foreignKey, uniqueIndex } from "drizzle-orm/pg-core";
 
 // id: a UUID that will serve as the primary key
 // created_at: a TIMESTAMP that can not be null
@@ -31,3 +31,25 @@ export const feeds = pgTable("feeds", {
 });
 
 export type Feed = typeof feeds.$inferSelect;
+
+export const feedFollows = pgTable("feed_follows", {
+  id: uuid("id")
+    .primaryKey()
+    .defaultRandom()
+    .notNull(),
+  createdAt: timestamp("created_at")
+    .notNull()
+    .defaultNow(),
+  updatedAt: timestamp("updated_at")
+    .notNull()
+    .defaultNow()
+    .$onUpdate(() => new Date()),
+  userId: uuid("user_id")
+    .references(() => users.id, { onDelete: "cascade" })
+    .notNull(),
+  feedId: uuid("feed_id")
+    .references(() => feeds.id, { onDelete: "cascade" })
+    .notNull()
+}, (table) => [
+  uniqueIndex("user_feed_unique").on(table.userId, table.feedId)
+]);
