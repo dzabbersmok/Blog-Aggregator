@@ -11,6 +11,7 @@ import { handleFeeds } from "./commands/feeds";
 import { handleFollow } from "./commands/follow";
 import { handleFollowing } from "./commands/following";
 import { middlewareLoggedIn } from "./middleware";
+import { handleUnfollow } from "./commands/unfollow";
 
 async function main() {
     const registry: CommandsRegistry = {};
@@ -23,6 +24,7 @@ async function main() {
     registerCommand(registry, "feeds", handleFeeds);
     registerCommand(registry, "follow", middlewareLoggedIn(handleFollow));
     registerCommand(registry, "following", middlewareLoggedIn(handleFollowing));
+    registerCommand(registry, "unfollow", middlewareLoggedIn(handleUnfollow));
 
     const commandLineArgs = process.argv.slice(2);
     if (commandLineArgs.length === 0) {
