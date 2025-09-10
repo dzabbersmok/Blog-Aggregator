@@ -10,6 +10,7 @@ import { handleAddFeed } from "./commands/addfeed";
 import { handleFeeds } from "./commands/feeds";
 import { handleFollow } from "./commands/follow";
 import { handleFollowing } from "./commands/following";
+import { middlewareLoggedIn } from "./middleware";
 
 async function main() {
     const registry: CommandsRegistry = {};
@@ -18,10 +19,10 @@ async function main() {
     registerCommand(registry, "reset", handleReset);
     registerCommand(registry, "users", handlerUsers);
     registerCommand(registry, "agg", handleAgg);
-    registerCommand(registry, "addfeed", handleAddFeed);
+    registerCommand(registry, "addfeed", middlewareLoggedIn(handleAddFeed));
     registerCommand(registry, "feeds", handleFeeds);
-    registerCommand(registry, "follow", handleFollow);
-    registerCommand(registry, "following", handleFollowing);
+    registerCommand(registry, "follow", middlewareLoggedIn(handleFollow));
+    registerCommand(registry, "following", middlewareLoggedIn(handleFollowing));
 
     const commandLineArgs = process.argv.slice(2);
     if (commandLineArgs.length === 0) {
