@@ -2,6 +2,7 @@ import { getNextFeedToFetch, markFeedFetched } from "../lib/db/queries/feeds";
 import { fetchFeed } from "../lib/rss/fetch";
 import { Feed } from "../lib/db/schema";
 import { parseDuration } from "../lib/time";
+import { createPost } from "../lib/db/queries/posts";
 
 export async function handlerAgg(cmdName: string, ...args: string[]) {
   if (args.length !== 1) {
@@ -46,12 +47,15 @@ async function scrapeFeeds() {
 
 async function scrapeFeed(feed: Feed) {
   await markFeedFetched(feed.id);
-
   const feedData = await fetchFeed(feed.url);
 
   console.log(
     `Feed ${feed.name} collected, ${feedData.channel.item.length} posts found`,
   );
+
+  for (const rssItem of feedData.channel.item) {
+    await createPost(rssItem, feed.id);
+  }
 }
 
 function handleError(err: unknown) {
