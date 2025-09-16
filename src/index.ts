@@ -5,7 +5,7 @@ import { handlerLogin } from "./commands/login";
 import { handlerRegister } from "./commands/register";
 import { handleReset } from "./commands/reset";
 import { handlerUsers } from "./commands/users";
-import { handleAgg } from "./commands/aggregate";
+import { handlerAgg } from "./commands/aggregate";
 import { handleAddFeed } from "./commands/addfeed";
 import { handleFeeds } from "./commands/feeds";
 import { handleFollow } from "./commands/follow";
@@ -19,7 +19,7 @@ async function main() {
     registerCommand(registry, "register", handlerRegister);
     registerCommand(registry, "reset", handleReset);
     registerCommand(registry, "users", handlerUsers);
-    registerCommand(registry, "agg", handleAgg);
+    registerCommand(registry, "agg", handlerAgg);
     registerCommand(registry, "addfeed", middlewareLoggedIn(handleAddFeed));
     registerCommand(registry, "feeds", handleFeeds);
     registerCommand(registry, "follow", middlewareLoggedIn(handleFollow));

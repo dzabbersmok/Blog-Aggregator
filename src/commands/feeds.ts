@@ -1,5 +1,5 @@
 import { getUserById } from "src/lib/db/queries/users";
-import { getFeeds } from "../lib/db/queries/feeds";
+import { getFeeds, getNextFeedToFetch, markFeedFetched } from "../lib/db/queries/feeds";
 import { CommandHandler } from "./commands";
 import {printFeed} from "./addfeed"
 
@@ -17,6 +17,9 @@ export const handleFeeds: CommandHandler = async (_cmdName, ..._args) => {
         if (!user) {
             throw new Error(`Failed to find user for feed ${feed.id}`);
         }
+        // await markFeedFetched(feed.id);
+        // const test = await getNextFeedToFetch();
+        // console.log(test);
         printFeed(feed, user);
     }
 };

@@ -1,4 +1,5 @@
-import { pgTable, timestamp, uuid, text, foreignKey, uniqueIndex } from "drizzle-orm/pg-core";
+import { pgTable, timestamp, uuid, text, uniqueIndex } from "drizzle-orm/pg-core";
+import { sql } from "drizzle-orm";
 
 // id: a UUID that will serve as the primary key
 // created_at: a TIMESTAMP that can not be null
@@ -18,7 +19,7 @@ export type User = typeof users.$inferSelect;
 
 export const feeds = pgTable("feeds", {
   id: uuid("id").primaryKey().defaultRandom().notNull(),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
+  createdAt: timestamp("created_at").notNull().default(new Date()),
   updatedAt: timestamp("updated_at")
     .notNull()
     .defaultNow()
@@ -28,6 +29,7 @@ export const feeds = pgTable("feeds", {
   userId: uuid("user_id")
     .references(() => users.id, { onDelete: "cascade" })
     .notNull(),
+  lastFetchedAt: timestamp("last_fetched_at")
 });
 
 export type Feed = typeof feeds.$inferSelect;
@@ -52,4 +54,30 @@ export const feedFollows = pgTable("feed_follows", {
     .notNull()
 }, (table) => [
   uniqueIndex("user_feed_unique").on(table.userId, table.feedId)
+]);
+
+export const posts = pgTable("posts", {
+  id: uuid("id")
+        .primaryKey()
+        .defaultRandom()
+        .notNull(),
+  createdAt: timestamp("created_at")
+        .notNull()
+        .defaultNow(),
+  updatedAt: timestamp("updated_at")
+        .notNull()
+        .defaultNow()
+        .$onUpdate(() => new Date()),
+  title: text("title")
+        .notNull(),
+  url: text("url")
+        .notNull(),
+  description: text("description"),
+  publishedAt: timestamp("published_at")
+        .notNull(),
+  feedId: uuid("feed_id")
+        .notNull()
+        .references(() => feeds.id, { onDelete: "cascade" })
+}, (table) => [
+  uniqueIndex("posts_feed_url_unique").on(table.feedId, table.url)
 ]);

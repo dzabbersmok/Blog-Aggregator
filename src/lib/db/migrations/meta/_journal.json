@@ -29,6 +29,27 @@
       "when": 1756981506421,
       "tag": "0003_spooky_gladiator",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1757581921869,
+      "tag": "0004_productive_william_stryker",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1757587491728,
+      "tag": "0005_known_skaar",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1757933561435,
+      "tag": "0006_strange_green_goblin",
+      "breakpoints": true
     }
   ]
 }
