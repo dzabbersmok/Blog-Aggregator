@@ -1,5 +1,36 @@
 # Blog-Aggregator
 
+## Installation
+npm i
+
+## Config File
+For the CLI to run you will need to create an .gatorconfig.json. 
+The file should be placed in your root folder (~/.gatorconfig.json)
+And should look like this:
+
+{
+  "db_url": "connection_string",
+  "current_user_name": "username"
+}
+
+connection_string - connection credentials string for the PostgreSQL database
+current_user_name - this will be set by CLI
+
+## Commands
+npm run start register <username>
+register new user and set the current user to it
+
+npm run start addfeed <feedName> <feedURL>
+add feed for current user, feedName and feedURL arguments are required
+
+npm run start follow <feedURL>
+follow existing feed
+
+npm run start login <username>
+login (set current user) to a previously registered user
+
+### TODO
+
 ### tsconfig.json
 - **include** specifies the files to include in the compilation
 - **exclude** specifies the files to exclude from the compilation
